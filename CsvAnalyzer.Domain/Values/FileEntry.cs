@@ -2,23 +2,23 @@
 
 namespace CsvAnalyzer.Domain.Value
 {
-    public class ValueEntry
+    public class FileEntry
     {
         public Guid Id { get; private set; }
         public string FileName { get; private set; }
 
-        public IEnumerable<Lines>? Lines { get; private set; }
+        public IEnumerable<LinesEntry>? Lines { get; private set; }
 
-        public ValueEntry(Guid id,
+        public FileEntry(Guid id,
                      string fileName,
-                     List<Lines> lines)
+                     List<LinesEntry> lines)
         {
             Id = id;
             FileName = fileName;
             Lines = lines ?? new();
         }
 
-        private ValueEntry() { }
+        private FileEntry() { }
 
         public override string ToString() => $"Id: {Id}, FileName: {FileName}";
     }
