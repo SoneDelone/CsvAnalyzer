@@ -5,9 +5,9 @@ using ErrorOr;
 
 namespace CsvAnalyzer.Infrastructure.Values.Persistence
 {
-    public class ValuesRepository : IValuesRepository
+    public class FilesRepository : IFilesRepository
     {
-        public Task<ErrorOr<Success>> AddValue(FileEntry file)
+        public Task<ErrorOr<Success>> AddValue(Domain.Value.ValuesEntry file)
         {
             throw new NotImplementedException();
         }
@@ -17,7 +17,7 @@ namespace CsvAnalyzer.Infrastructure.Values.Persistence
             throw new NotImplementedException();
         }
 
-        public Task<ErrorOr<Success>> UpdateValues(LinesEntry lines)
+        public Task<ErrorOr<Success>> UpdateValues(Domain.Values.Entities.ValuesEntry lines)
         {
             throw new NotImplementedException();
         }

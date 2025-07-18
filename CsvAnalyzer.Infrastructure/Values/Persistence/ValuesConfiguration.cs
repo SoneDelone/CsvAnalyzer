@@ -1,17 +1,18 @@
-﻿using CsvAnalyzer.Application.Common.Interfaces;
-using CsvAnalyzer.Domain.Value;
-using CsvAnalyzer.Domain.Values.Entities;
-using ErrorOr;
+﻿using CsvAnalyzer.Domain.Values.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CsvAnalyzer.Infrastructure.Values.Persistence
 {
-    public class ValuesConfiguration : IEntityTypeConfiguration<FileEntry>
+    public class ValuesConfiguration : IEntityTypeConfiguration<ValuesEntry>
     {
-        public void Configure(EntityTypeBuilder<FileEntry> builder)
+        public void Configure(EntityTypeBuilder<ValuesEntry> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("values")
+                .HasKey(fe => fe.Id);
+
+            builder.Property(fe => fe.Id)
+                .ValueGeneratedOnAdd();
         }
     }
 }

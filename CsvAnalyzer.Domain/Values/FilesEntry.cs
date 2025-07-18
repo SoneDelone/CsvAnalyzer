@@ -7,15 +7,15 @@ namespace CsvAnalyzer.Domain.Value
         public Guid Id { get; private set; }
         public string FileName { get; private set; }
 
-        public IEnumerable<LinesEntry>? Lines { get; private set; }
+        public IEnumerable<ValuesEntry>? FileValues { get; private set; }
 
         public FileEntry(Guid id,
                      string fileName,
-                     List<LinesEntry> lines)
+                     List<ValuesEntry> lines)
         {
             Id = id;
             FileName = fileName;
-            Lines = lines ?? new();
+            FileValues = lines ?? new();
         }
 
         private FileEntry() { }

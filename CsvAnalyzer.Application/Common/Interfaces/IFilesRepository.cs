@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CsvAnalyzer.Application.Common.Interfaces
 {
-    public interface IValuesRepository
+    public interface IFilesRepository
     {
-        Task<ErrorOr<Success>> AddValue(FileEntry file);
+        Task<ErrorOr<Success>> AddValue(FilesEntry file);
         Task<ErrorOr<Success>> RemoveValue(Guid fileEntryId);
-        Task<ErrorOr<Success>> UpdateValues(LinesEntry lines);
+        Task<ErrorOr<Success>> UpdateValues(Domain.Values.Entities.ValuesEntry lines);
         Task<ErrorOr<Success>> ValueExists();
     }
 }
