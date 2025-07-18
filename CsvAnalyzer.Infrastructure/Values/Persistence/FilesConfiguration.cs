@@ -1,7 +1,4 @@
-﻿using CsvAnalyzer.Application.Common.Interfaces;
-using CsvAnalyzer.Domain.Value;
-using CsvAnalyzer.Domain.Values.Entities;
-using ErrorOr;
+﻿using CsvAnalyzer.Domain.Value;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

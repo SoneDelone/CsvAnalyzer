@@ -9,7 +9,7 @@ namespace CsvAnalyzer.Domain.Values.Entities
         public double ExecutionTime { get; private set; }
         public double Value { get; private set; }
 
-        public Guid FileEntryId { get; private set; }                                                                                                                            
+        public Guid FileEntryId { get; private set; }
         public FileEntry? FileEntry { get; private set; }
 
         public ValuesEntry(Guid id,

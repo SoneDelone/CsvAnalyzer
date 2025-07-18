@@ -1,9 +1,10 @@
 ﻿using CsvAnalyzer.Application.Common.Interfaces;
 using CsvAnalyzer.Infrastructure.Common.Persistence;
-using Microsoft.Extensions.DependencyInjection;
+using CsvAnalyzer.Infrastructure.Results.Persistence;
+using CsvAnalyzer.Infrastructure.Values.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using CsvAnalyzer.Infrastructure.Values.Persistence;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CsvAnalyzer.Infrastructure
 {
@@ -20,7 +21,7 @@ namespace CsvAnalyzer.Infrastructure
             services.AddDbContext<CsvDbContext>(options =>
                 options.UseNpgsql(builder.GetConnectionString("DefaultConnection")));
 
-            //services.AddScoped<IResultsRepository, AdminsRepository>();
+            services.AddScoped<IResultsRepository, ResultsRepository>();
             services.AddScoped<IFilesRepository, FilesRepository>();
             services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<CsvDbContext>());
 

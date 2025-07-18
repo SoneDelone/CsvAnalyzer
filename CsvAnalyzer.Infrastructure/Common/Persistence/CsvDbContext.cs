@@ -10,7 +10,7 @@ namespace CsvAnalyzer.Infrastructure.Common.Persistence
     public class CsvDbContext : DbContext, IUnitOfWork
     {
 
-        public DbSet<FilesEntry> FileEntries { get; set; } = null!;
+        public DbSet<FileEntry> FileEntries { get; set; } = null!;
         public DbSet<ValuesEntry> ValuesEntries { get; set; } = null!;
         public DbSet<ResultEntry> ResultsEntries { get; set; } = null!;
 

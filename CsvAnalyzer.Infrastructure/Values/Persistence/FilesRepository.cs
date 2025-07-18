@@ -1,13 +1,12 @@
 ﻿using CsvAnalyzer.Application.Common.Interfaces;
 using CsvAnalyzer.Domain.Value;
-using CsvAnalyzer.Domain.Values.Entities;
 using ErrorOr;
 
 namespace CsvAnalyzer.Infrastructure.Values.Persistence
 {
     public class FilesRepository : IFilesRepository
     {
-        public Task<ErrorOr<Success>> AddValue(Domain.Value.ValuesEntry file)
+        public Task<ErrorOr<Success>> AddValue(FileEntry file)
         {
             throw new NotImplementedException();
         }
