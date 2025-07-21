@@ -1,4 +1,5 @@
-﻿using CsvAnalyzer.Domain.Values.Entities;
+﻿using CsvAnalyzer.Domain.Results;
+using CsvAnalyzer.Domain.Values.Entities;
 
 namespace CsvAnalyzer.Domain.Value
 {
@@ -6,8 +7,8 @@ namespace CsvAnalyzer.Domain.Value
     {
         public Guid Id { get; private set; }
         public string FileName { get; private set; }
-
         public IEnumerable<FileValuesEntry>? FileValues { get; private set; }
+        public IEnumerable<ResultEntry>? ResultEntries { get; private set; }
 
         private FileEntry(string fileName)
         {

@@ -3,6 +3,7 @@ using System;
 using CsvAnalyzer.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CsvAnalyzer.Infrastructure.Migrations
 {
     [DbContext(typeof(CsvDbContext))]
-    partial class CsvDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250721224545_AddFileEntryIdToResultsEntry")]
+    partial class AddFileEntryIdToResultsEntry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

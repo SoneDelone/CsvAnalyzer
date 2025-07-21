@@ -6,9 +6,9 @@ namespace CsvAnalyzer.Infrastructure.Results.Persistence
 {
     public class ResultsRepository(CsvDbContext _db) : IResultsRepository
     {
-        public Task AddResult(ResultEntry result)
+        public async Task AddResultAsync(ResultEntry result)
         {
-            return Task.CompletedTask;
+            await _db.ResultsEntries.AddAsync(result);
         }
         public Task GetAllResults()
         {

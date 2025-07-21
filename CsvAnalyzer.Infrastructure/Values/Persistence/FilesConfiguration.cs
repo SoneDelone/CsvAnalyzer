@@ -1,4 +1,5 @@
-﻿using CsvAnalyzer.Domain.Value;
+﻿using CsvAnalyzer.Domain.Results;
+using CsvAnalyzer.Domain.Value;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,12 +12,14 @@ namespace CsvAnalyzer.Infrastructure.Values.Persistence
             builder.ToTable("files")
                 .HasKey(fe => fe.Id);
 
-            builder.Property(fe => fe.Id)
-                .ValueGeneratedOnAdd();
-
             builder.HasMany(fe => fe.FileValues)
                 .WithOne(ve => ve.FileEntry)
                 .HasForeignKey(ve => ve.FileEntryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(fe => fe.ResultEntries)
+                .WithOne(re => re.FileEntry)
+                .HasForeignKey(re => re.FileEntryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

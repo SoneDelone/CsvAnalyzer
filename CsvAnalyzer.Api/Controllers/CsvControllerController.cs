@@ -1,5 +1,6 @@
 using CsvAnalyzer.Api.Common.Errors;
 using CsvAnalyzer.Api.Extensions;
+using CsvAnalyzer.Application.Common.FilesModel;
 using CsvAnalyzer.Application.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,13 +29,7 @@ public class CsvControllerController(CsvService _csvService) : ApiController
             errors => Problem(errors));
     }
     [HttpPost("process")]
-    public async Task<IActionResult> ProcessCsv([FromQuery] string? fileName = null,
-                                                [FromQuery] DateTime? minStartTime = null,
-                                                [FromQuery] DateTime? maxStartTime = null,
-                                                [FromQuery] double? minAverageValue = null,
-                                                [FromQuery] double? maxAverageValue = null,
-                                                [FromQuery] double? minAverageExecutionTime = null,
-                                                [FromQuery] double? maxAverageExecutionTime = null)
+    public async Task<IActionResult> ProcessCsv([FromQuery] CsvFilterParams filter)
     {
 
         return Ok("Processing not implemented yet.");
