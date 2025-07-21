@@ -1,3 +1,4 @@
+using CsvAnalyzer.Api.Common.Errors;
 using CsvAnalyzer.Api.Extensions;
 using CsvAnalyzer.Application.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -14,13 +15,13 @@ public class CsvControllerController(CsvService _csvService) : ApiController
     public async Task<IActionResult> UploadCsv(IFormFile file)
     {
         if (file is null || file.Length == 0)
-            return BadRequest("File is empty or not provided.");
+            return Problem(CsvControllerErrors.FileIsEmptyOrMissing);
 
         if (!Path.GetExtension(file.FileName).IsAllowedExtension())
-            return BadRequest("File type is not allowed");
+            return Problem(CsvControllerErrors.FileExtensionNotAllowed);
 
         using var stream = file.OpenReadStream();
-        var processCsvResult = await _csvService.ProccessCsvAsync(stream);
+        var processCsvResult = await _csvService.ProccessCsvAsync(stream, file.FileName);
 
         return processCsvResult.Match(
             res => Ok(),

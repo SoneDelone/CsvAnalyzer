@@ -5,10 +5,12 @@ namespace CsvAnalyzer.Application.Common.Interfaces
 {
     public interface IFilesRepository
     {
-        Task SaveFileInfo(FileEntry file);
-        Task SaveFileLines(List<FileValuesEntry> file);
-        Task RemoveValue(Guid fileEntryId);
-        Task UpdateValues(FileValuesEntry lines);
-        Task ValueExists();
+        Task SaveFileInfoAsync(FileEntry file);
+        Task SaveFileLinesAsync(List<FileValuesEntry> file);
+        Task RemoveValuesAsync(Guid fileEntryId);
+        Task<FileEntry?> GetByIdAsync(Guid id);
+        Task<FileEntry?> GetByNameAsync(string name);
+        Task<bool> ExistsByIdAsync(Guid id);
+        Task<bool> ExistsByNameAsync(string name);
     }
 }

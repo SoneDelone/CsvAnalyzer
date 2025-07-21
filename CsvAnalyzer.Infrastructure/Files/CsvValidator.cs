@@ -1,6 +1,6 @@
-﻿using CsvAnalyzer.Application.Common.Errors;
-using CsvAnalyzer.Application.Common.FilesModel;
+﻿using CsvAnalyzer.Application.Common.FilesModel;
 using CsvAnalyzer.Application.Common.Interfaces;
+using CsvAnalyzer.Infrastructure.Common.Errors;
 using CsvHelper;
 using CsvHelper.TypeConversion;
 using ErrorOr;

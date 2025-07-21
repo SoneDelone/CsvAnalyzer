@@ -2,7 +2,6 @@
 {
     public enum FileExtensions
     {
-        Csv,
-        Txt
+        Csv
     }
 }

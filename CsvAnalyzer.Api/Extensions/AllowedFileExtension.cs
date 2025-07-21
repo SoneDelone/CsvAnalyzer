@@ -10,7 +10,6 @@ namespace CsvAnalyzer.Api.Extensions
             return ext switch
             {
                 FileExtensions.Csv => ".csv",
-                FileExtensions.Txt => ".txt",
                 _ => Error.Validation(description: $"Extension {ext} not supported")
             };
         }

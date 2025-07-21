@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 
-namespace CsvAnalyzer.Application.Common.Errors;
+namespace CsvAnalyzer.Infrastructure.Common.Errors;
 
 public class CsvValidatorErrors
 {

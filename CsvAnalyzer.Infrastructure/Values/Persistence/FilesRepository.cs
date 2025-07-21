@@ -2,36 +2,42 @@
 using CsvAnalyzer.Domain.Value;
 using CsvAnalyzer.Domain.Values.Entities;
 using CsvAnalyzer.Infrastructure.Common.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace CsvAnalyzer.Infrastructure.Values.Persistence
 {
     public class FilesRepository(CsvDbContext _db) : IFilesRepository
     {
-        public Task SaveFileInfo(FileEntry file)
+        public async Task SaveFileInfoAsync(FileEntry file)
         {
-            _db.FileEntries.Add(file);
-            return Task.CompletedTask;
+            await _db.FileEntries.AddAsync(file);
         }
 
-        public Task SaveFileLines(List<FileValuesEntry> file)
+        public async Task SaveFileLinesAsync(List<FileValuesEntry> file)
         {
-            _db.FileValuesEntries.AddRange(file);
-            return Task.CompletedTask;
+            await _db.FileValuesEntries.AddRangeAsync(file);
         }
 
-        public Task RemoveValue(Guid fileEntryId)
+        public async Task<FileEntry?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _db.FileEntries
+                .Include(l => l.FileValues)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
+        public async Task<FileEntry?> GetByNameAsync(string name)
+        {
+            return await _db.FileEntries
+                .Include(l => l.FileValues)
+                .FirstOrDefaultAsync(x => x.FileName == name);
+        }
+        public async Task RemoveValuesAsync(Guid fileEntryId)
+        {
+            await _db.FileValuesEntries
+                .Where(x => x.FileEntryId == fileEntryId)
+                .ExecuteDeleteAsync();
+        }
+        public async Task<bool> ExistsByIdAsync(Guid id) => await _db.FileEntries.AsNoTracking().AnyAsync(x => x.Id == id);
+        public async Task<bool> ExistsByNameAsync(string name) => await _db.FileEntries.AsNoTracking().AnyAsync(x => x.FileName == name);
 
-        public Task UpdateValues(FileValuesEntry lines)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ValueExists()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
