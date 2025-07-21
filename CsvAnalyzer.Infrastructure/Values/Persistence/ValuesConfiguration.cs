@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CsvAnalyzer.Infrastructure.Values.Persistence
 {
-    public class ValuesConfiguration : IEntityTypeConfiguration<ValuesEntry>
+    public class ValuesConfiguration : IEntityTypeConfiguration<FileValuesEntry>
     {
-        public void Configure(EntityTypeBuilder<ValuesEntry> builder)
+        public void Configure(EntityTypeBuilder<FileValuesEntry> builder)
         {
             builder.ToTable("values")
                 .HasKey(fe => fe.Id);

@@ -2,9 +2,9 @@
 
 namespace CsvAnalyzer.Domain.Values.Entities
 {
-    public class ValuesEntry
+    public class FileValuesEntry
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; private set; } = Guid.NewGuid();
         public DateTime Date { get; private set; }
         public double ExecutionTime { get; private set; }
         public double Value { get; private set; }
@@ -12,7 +12,7 @@ namespace CsvAnalyzer.Domain.Values.Entities
         public Guid FileEntryId { get; private set; }
         public FileEntry? FileEntry { get; private set; }
 
-        public ValuesEntry(Guid id,
+        public FileValuesEntry(Guid id,
                      DateTime date,
                      double executionTime,
                      double value)
@@ -23,7 +23,7 @@ namespace CsvAnalyzer.Domain.Values.Entities
             FileEntryId = id;
         }
 
-        private ValuesEntry() { }
+        private FileValuesEntry() { }
 
         public override string ToString() => $"Date: {Date}, ExecutionTime: {ExecutionTime}, Value: {Value}";
     }

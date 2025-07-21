@@ -1,4 +1,4 @@
-﻿namespace CsvAnalyzer.Domain.Result
+﻿namespace CsvAnalyzer.Domain.Results
 {
     public class ResultEntry
     {

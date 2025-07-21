@@ -1,13 +1,14 @@
 ﻿using CsvAnalyzer.Domain.Value;
-using ErrorOr;
+using CsvAnalyzer.Domain.Values.Entities;
 
 namespace CsvAnalyzer.Application.Common.Interfaces
 {
     public interface IFilesRepository
     {
-        Task<ErrorOr<Success>> AddValue(FileEntry file);
-        Task<ErrorOr<Success>> RemoveValue(Guid fileEntryId);
-        Task<ErrorOr<Success>> UpdateValues(Domain.Values.Entities.ValuesEntry lines);
-        Task<ErrorOr<Success>> ValueExists();
+        Task SaveFileInfo(FileEntry file);
+        Task SaveFileLines(List<FileValuesEntry> file);
+        Task RemoveValue(Guid fileEntryId);
+        Task UpdateValues(FileValuesEntry lines);
+        Task ValueExists();
     }
 }

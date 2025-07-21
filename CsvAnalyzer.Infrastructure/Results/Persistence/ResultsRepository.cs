@@ -1,38 +1,22 @@
 ﻿using CsvAnalyzer.Application.Common.Interfaces;
-using CsvAnalyzer.Domain.Result;
+using CsvAnalyzer.Domain.Results;
 using CsvAnalyzer.Infrastructure.Common.Persistence;
-using ErrorOr;
-using Microsoft.EntityFrameworkCore;
 
 namespace CsvAnalyzer.Infrastructure.Results.Persistence
 {
-    public class ResultsRepository : IResultsRepository
+    public class ResultsRepository(CsvDbContext _db) : IResultsRepository
     {
-        private readonly CsvDbContext _context;
-        public ResultsRepository(CsvDbContext context)
+        public Task AddResult(ResultEntry result)
         {
-            _context = context;
+            return Task.CompletedTask;
         }
-        public async Task<ErrorOr<Success>> AddResult(ResultEntry result)
+        public Task GetAllResults()
         {
-            _context.ResultsEntries.Add(result);
-            await _context.SaveChangesAsync();
-            return Result.Success;
+            return Task.CompletedTask;
         }
-        public async Task<ErrorOr<List<ResultEntry>>> GetAllResults()
+        public Task GetResultById(Guid id)
         {
-            var results = await _context.ResultsEntries.ToListAsync();
-            return results;
-        }
-        public async Task<ErrorOr<ResultEntry>> GetResultById(Guid id)
-        {
-            var result = await _context.ResultsEntries.FindAsync(id);
-
-            if (result is null)
-            {
-                return Error.NotFound();
-            }
-            return result;
+            return Task.CompletedTask;
         }
     }
 }
