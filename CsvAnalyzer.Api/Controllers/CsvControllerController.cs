@@ -2,6 +2,8 @@ using CsvAnalyzer.Api.Common.Errors;
 using CsvAnalyzer.Api.Extensions;
 using CsvAnalyzer.Application.Common.FilesModel;
 using CsvAnalyzer.Application.Service;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +11,8 @@ namespace CsvAnalyzer.Api.Controllers;
 
 [AllowAnonymous]
 [Route("csv")]
-public class CsvControllerController(CsvService _csvService) : ApiController
+public class CsvControllerController(CsvService _csvService,
+                                     IMapper _mapper) : ApiController
 {
     [HttpPost("upload")]
     [Consumes("multipart/form-data")]
@@ -28,10 +31,23 @@ public class CsvControllerController(CsvService _csvService) : ApiController
             res => Ok(),
             errors => Problem(errors));
     }
-    [HttpPost("process")]
-    public async Task<IActionResult> ProcessCsv([FromQuery] CsvFilterParams filter)
+    [HttpPost("filter")]
+    public async Task<IActionResult> FilterCsv([FromQuery] CsvFilterParams filter)
     {
+        var processResult = await _csvService.getFilteredReuslts(filter);
 
-        return Ok("Processing not implemented yet.");
+        return processResult.Match(
+            res => Ok(res.Adapt<ResultsDTO[]>()),
+            errors => Problem(errors));
+    }
+
+    [HttpPost("last")]
+    public async Task<IActionResult> LastValuesCvs([FromQuery] string name)
+    {
+        var processResult = await _csvService.getLastResultsByName(name);
+
+        return processResult.Match(
+            res => Ok(res.Adapt<ResultsDTO[]>()),
+            errors => Problem(errors));
     }
 }

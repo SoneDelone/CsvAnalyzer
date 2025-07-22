@@ -1,5 +1,4 @@
-﻿using CsvAnalyzer.Domain.Results;
-using CsvAnalyzer.Domain.Value;
+﻿using CsvAnalyzer.Domain.Value;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

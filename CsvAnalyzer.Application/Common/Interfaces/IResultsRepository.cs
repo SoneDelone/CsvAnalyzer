@@ -1,4 +1,5 @@
-﻿using CsvAnalyzer.Domain.Results;
+﻿using CsvAnalyzer.Application.Common.FilesModel;
+using CsvAnalyzer.Domain.Results;
 
 namespace CsvAnalyzer.Application.Common.Interfaces
 {
@@ -6,8 +7,8 @@ namespace CsvAnalyzer.Application.Common.Interfaces
     {
         Task AddResultAsync(ResultEntry result);
 
-        Task GetAllResults();
+        Task<List<ResultEntry>> GetAllResultsAsQueryable(CsvFilterParams filter, Guid? id = null);
 
-        Task GetResultById(Guid id);
+        Task<List<ResultEntry>> GetLastResultById(Guid id);
     }
 }

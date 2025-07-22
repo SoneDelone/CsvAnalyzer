@@ -10,7 +10,6 @@ using CsvHelper.Configuration;
 using ErrorOr;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace CsvAnalyzer.Application.Service
@@ -33,19 +32,18 @@ namespace CsvAnalyzer.Application.Service
             csvReader.Context.RegisterClassMap<CsvFileMapper>();
 
             var recordOrError = await _csvValidator.CsvValidateAsync(csvReader);
-
             if (recordOrError.IsError)
                 return recordOrError.Errors;
-
             if (recordOrError.Value is null)
                 return CsvServiceErrors.CsvLinesNullValue;
 
             var savefileResult = await SaveFileAsync(fileName, recordOrError.Value);
-
             if (savefileResult.IsError)
                 return savefileResult.Errors;
 
             var fileEntry = await CalculateResultsAsync(savefileResult.Value);
+            if (fileEntry.IsError)
+                return fileEntry.Errors;
 
             return Result.Success;
         }
@@ -79,7 +77,7 @@ namespace CsvAnalyzer.Application.Service
                 await _filesRepository.SaveFileLinesAsync(fileValues);
             }
 
-            await _unit.CommitChanges(); // транзакцию добавить
+            await _unit.CommitChanges();
 
             return fileEntry.Id;
         }
@@ -121,10 +119,53 @@ namespace CsvAnalyzer.Application.Service
                 minValue,
                 fileEntryId);
 
-            await _resultsRepository.AddResultAsync(resultEntry); // транзакцию добавить
+            await _resultsRepository.AddResultAsync(resultEntry);
             await _unit.CommitChanges();
 
             return Result.Success;
+        }
+
+        public async Task<ErrorOr<List<ResultEntry>>> getFilteredReuslts(CsvFilterParams filter)
+        {
+            List<ResultEntry> queryResults = new();
+
+            if (!string.IsNullOrWhiteSpace(filter.FileName) && await _filesRepository.ExistsByNameAsync(filter.FileName))
+            {
+                var fileEntry = await _filesRepository.GetByNameAsync(filter.FileName);
+
+                queryResults = await _resultsRepository.GetAllResultsAsQueryable(filter, fileEntry.Id);
+            }
+            else if (!string.IsNullOrWhiteSpace(filter.FileName) && !await _filesRepository.ExistsByNameAsync(filter.FileName))
+            {
+                    return CsvServiceErrors.FileNotFound;
+            }
+            else
+            {
+                queryResults = await _resultsRepository.GetAllResultsAsQueryable(filter);
+            }
+            
+            return queryResults;
+        }
+
+        public async Task<ErrorOr<List<ResultEntry>>> getLastResultsByName(string name)
+        {
+            List<ResultEntry> queryResults = new();
+            if (!string.IsNullOrWhiteSpace(name) && await _filesRepository.ExistsByNameAsync(name))
+            {
+                var fileEntry = await _filesRepository.GetByNameAsync(name);
+
+                queryResults = await _resultsRepository.GetLastResultById(fileEntry.Id);
+            }
+            else if (!string.IsNullOrWhiteSpace(name) && !await _filesRepository.ExistsByNameAsync(name))
+            {
+                return CsvServiceErrors.FileNotFound;
+            }
+            else
+            {
+                return CsvServiceErrors.FileNameIsEmpty;
+            }
+
+            return queryResults.OrderBy(d => d.MinDate).ToList();
         }
     }
 }

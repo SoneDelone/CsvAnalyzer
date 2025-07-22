@@ -21,13 +21,11 @@ namespace CsvAnalyzer.Infrastructure.Values.Persistence
         public async Task<FileEntry?> GetByIdAsync(Guid id)
         {
             return await _db.FileEntries
-                .Include(l => l.FileValues)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
         public async Task<FileEntry?> GetByNameAsync(string name)
         {
             return await _db.FileEntries
-                .Include(l => l.FileValues)
                 .FirstOrDefaultAsync(x => x.FileName == name);
         }
         public async Task RemoveValuesAsync(Guid fileEntryId)
