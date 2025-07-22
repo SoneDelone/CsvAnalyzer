@@ -10,7 +10,7 @@ namespace CsvAnalyzer.Application.Common.Errors
 
         public static Error FileNotFound => Error.Unexpected(
             code: "CsvService.FileNotFound",
-            description: "Provided name does not exist."); 
+            description: "Provided name does not exist.");
         public static Error FileNameIsEmpty => Error.Unexpected(
             code: "CsvService.FileNameIsEmpt",
             description: "Provide not empty name.");

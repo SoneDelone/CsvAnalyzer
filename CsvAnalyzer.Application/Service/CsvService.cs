@@ -137,13 +137,13 @@ namespace CsvAnalyzer.Application.Service
             }
             else if (!string.IsNullOrWhiteSpace(filter.FileName) && !await _filesRepository.ExistsByNameAsync(filter.FileName))
             {
-                    return CsvServiceErrors.FileNotFound;
+                return CsvServiceErrors.FileNotFound;
             }
             else
             {
                 queryResults = await _resultsRepository.GetAllResultsAsQueryable(filter);
             }
-            
+
             return queryResults;
         }
 

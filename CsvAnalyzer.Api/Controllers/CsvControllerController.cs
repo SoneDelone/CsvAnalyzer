@@ -2,7 +2,6 @@ using CsvAnalyzer.Api.Common.Errors;
 using CsvAnalyzer.Api.Extensions;
 using CsvAnalyzer.Application.Common.FilesModel;
 using CsvAnalyzer.Application.Service;
-using ErrorOr;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -24,14 +23,14 @@ public class CsvControllerController(CsvService _csvService,
 
         if (file.FileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             return Problem(CsvControllerErrors.InvalidCharacters);
-        
+
         if (!Path.GetExtension(file.FileName).IsAllowedExtension())
             return Problem(CsvControllerErrors.FileExtensionNotAllowed);
 
         var nameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
         if (string.IsNullOrWhiteSpace(nameWithoutExtension))
             return Problem(CsvControllerErrors.FileMissingName);
-        
+
         using var stream = file.OpenReadStream();
         var processCsvResult = await _csvService.ProccessCsvAsync(stream, nameWithoutExtension);
 

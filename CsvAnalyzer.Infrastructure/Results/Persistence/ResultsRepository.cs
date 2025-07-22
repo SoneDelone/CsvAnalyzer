@@ -41,7 +41,7 @@ namespace CsvAnalyzer.Infrastructure.Results.Persistence
         }
         public async Task<List<ResultEntry>> GetLastResultById(Guid id)
         {
-            return _db.ResultsEntries.AsNoTracking().Where( f => f.FileEntryId == id).Take(10).ToList();
+            return _db.ResultsEntries.AsNoTracking().Where(f => f.FileEntryId == id).Take(10).ToList();
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿using CsvAnalyzer.Domain.Value;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CsvAnalyzer.Application.Common.FilesModel
+﻿namespace CsvAnalyzer.Application.Common.FilesModel
 {
     public class ResultsDTO
     {
